@@ -8,6 +8,7 @@
 'search' => null,
 'label' => null,
 'value' => null,
+'api' => null,
 ])
 
 @php
