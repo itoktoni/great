@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use msztorc\LaravelEnv\Env;
+use Illuminate\Support\Facades\Blade;
+use ProtoneMedia\LaravelFormComponents\Components\Form;
+use ProtoneMedia\LaravelFormComponents\Components\FormInput;
+use ProtoneMedia\LaravelFormComponents\Components\FormSelect;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +32,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        Blade::component('form', Form::class);
+        Blade::component('form-input', FormInput::class);
+        Blade::component('form-select', FormSelect::class);
     }
 }

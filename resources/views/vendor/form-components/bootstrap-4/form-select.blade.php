@@ -1,13 +1,5 @@
 @php
 $class = 'form-control';
-$col = null;
-$search = null;
-$api = null;
-$placeholder = null;
-$col = $col ? 'col-md-'.$col : 'col';
-if(!is_bool($label)){
-    $label = $label ? $label : Str::title($name);
-}
 @endphp
 
 <div class="form-group {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
