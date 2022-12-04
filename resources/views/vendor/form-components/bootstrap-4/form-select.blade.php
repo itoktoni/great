@@ -14,7 +14,7 @@
 @php
 $class = 'form-control';
 $placeholder = '- Silahkan pilih -';
-$col = $col ? 'col-md-'.$col : 'col';
+$col = !empty($col) ? 'col-md-'.$col : 'col';
 if(!is_bool($label)){
     $label = $label ? $label : Str::title($name);
 }
