@@ -13,6 +13,7 @@
 
 @php
 $class = 'form-control';
+$placeholder = '';
 $col = !empty($col) ? 'col-md-'.$col : 'col';
 if(!is_bool($label)){
     $label = $label ? $label : Str::title($name);
@@ -54,7 +55,7 @@ if(!is_bool($label)){
 
     name="{{ $name }}"
 
-    @if($placeholder)
+    @if(!empty($placeholder))
         placeholder="{{ $placeholder }}"
     @endif
 
