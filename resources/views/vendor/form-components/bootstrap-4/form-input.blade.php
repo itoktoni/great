@@ -1,5 +1,6 @@
 @php
 $class = 'form-control';
+$col = null;
 $col = $col ? 'col-md-'.$col : 'col';
 if(!is_bool($label)){
     $label = $label ? $label : Str::title($name);
