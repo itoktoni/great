@@ -1,5 +1,5 @@
 @props([
-'col' => '',
+'col' => ,
 'placeholder ' => '',
 'label' => '',
 'toggle' => null,
@@ -14,7 +14,7 @@
 @php
 $class = 'form-control';
 $placeholder = '';
-$col = !empty($col) ? 'col-md-'.$col : 'col';
+$col = !empty($col) ? 'col-md-'.$col : 'col-md-6';
 if(!is_bool($label)){
     $label = $label ? $label : Str::title($name);
 }
