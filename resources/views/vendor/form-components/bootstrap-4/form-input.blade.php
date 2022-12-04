@@ -1,5 +1,5 @@
 @props([
-'col' => ,
+'col' => null,
 'placeholder ' => '',
 'label' => '',
 'toggle' => null,
