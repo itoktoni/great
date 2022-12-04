@@ -1,5 +1,22 @@
+@props([
+'col' => null,
+'placeholder ' => null,
+'label' => '',
+'button' => null,
+'prepend' => null,
+'append' => null,
+'search' => null,
+'label' => null,
+'value' => null,
+])
+
 @php
 $class = 'form-control';
+$placeholder = '- Silahkan pilih -';
+$col = $col ? 'col-md-'.$col : 'col';
+if(!is_bool($label)){
+    $label = $label ? $label : Str::title($name);
+}
 @endphp
 
 <div class="form-group {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
@@ -26,9 +43,7 @@ $class = 'form-control';
             multiple
         @endif
 
-        @if($placeholder)
-            data-placeholder="{{ $placeholder }}"
-        @endif
+        data-placeholder="{{ $placeholder }}"
 
         @if($label && !$attributes->get('id'))
             id="{{ $id() }}"

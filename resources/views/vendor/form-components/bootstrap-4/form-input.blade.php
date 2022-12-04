@@ -1,5 +1,23 @@
+@props([
+'col' => null,
+'placeholder ' => null,
+'label' => '',
+'toggle' => null,
+'button' => null,
+'prepend' => null,
+'append' => null,
+'icon' => null,
+'label' => null,
+'value' => null,
+])
+
 @php
 $class = 'form-control';
+$placeholder = null;
+$col = $col ? 'col-md-'.$col : 'col';
+if(!is_bool($label)){
+    $label = $label ? $label : Str::title($name);
+}
 @endphp
 
 <div class="@if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
