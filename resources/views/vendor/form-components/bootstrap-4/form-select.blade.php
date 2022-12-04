@@ -1,6 +1,7 @@
 @php
 $class = 'form-control';
 $col = null;
+$search = null;
 $api = null;
 $placeholder = null;
 $col = $col ? 'col-md-'.$col : 'col';
