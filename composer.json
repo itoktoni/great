@@ -66,10 +66,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Alkhachatryan\\LaravelWebConsole\\": "plugins/alkhachatryan/laravel-web-console/src/"
-        },
-        "files": [
-            "Plugins/global.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
