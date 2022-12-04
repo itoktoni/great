@@ -1,6 +1,6 @@
 @props([
 'col' => '',
-'placeholder ' => null,
+'placeholder ' => '',
 'label' => '',
 'toggle' => null,
 'button' => null,
