@@ -21,15 +21,6 @@ class UserRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if($this->role == '- Silahkan pilih -'){
-                // $validator->errors()->add('role', 'Data Required');
-            }
-        });
-    }
-
     public function prepareForValidation()
     {
         if ($this->password) {

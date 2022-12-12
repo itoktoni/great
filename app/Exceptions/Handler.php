@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Plugins\Alert;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -34,4 +37,20 @@ class Handler extends ExceptionHandler
     {
         //
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    // public function render($request, Throwable $exception)
+    // {
+    //     Log::error($exception);
+    //     dd($exception);
+    //     return response()->view('errors.custom', ['exception' => $exception]);
+    // }
 }

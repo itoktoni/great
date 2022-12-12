@@ -1,25 +1,3 @@
-@props([
-'col' => null,
-'placeholder ' => null,
-'label' => '',
-'button' => null,
-'prepend' => null,
-'append' => null,
-'search' => null,
-'label' => null,
-'value' => null,
-'api' => null,
-])
-
-@php
-$class = 'form-control';
-$placeholder = '- Silahkan pilih -';
-$col = !empty($col) ? 'col-md-'.$col : 'col-md-6';
-if(!is_bool($label)){
-    $label = $label ? $label : Str::title($name);
-}
-@endphp
-
 <div class="form-group {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
     <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
 

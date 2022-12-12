@@ -36,7 +36,7 @@
 
 			<li>
 				@auth
-				<a  hx-boost="false" class="icon" href="{{ route('logout') }}">
+				<a class="icon" href="{{ route('signout') }}">
 					<i class="bi bi-person-x"></i>
 					<h5 class="text-center text-white">
 						Logout
@@ -58,7 +58,7 @@
 
 @if(Template::greatherAdmin())
 <!-- begin::navigation menu -->
-<div class="navigation-menu-body" data-turbolinks="false">
+<div class="navigation-menu-body">
 
 	<!-- begin::navigation-logo -->
 	<div class="navigation-header">
@@ -101,7 +101,7 @@
 				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_primary;
 				@endphp
 				<li>
-					<a class="{{ $active ? 'active' : '' }}" href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
+					<a class="link {{ $active ? 'active' : '' }}" hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
 						<span>{{ $menu->field_name }}</span>
 					</a>
 				</li>
@@ -110,7 +110,10 @@
 				$open = request()->segment(2) == $group_data->field_primary && request()->segment(3) == $menu->field_primary;
 				@endphp
 				<li class="{{ $open ? 'open' : '' }}">
-					<a href="#">{{ $menu->field_name }}</a>
+					<a href="#">
+						{{ $menu->field_name }}
+						<i class="sub-menu-arrow chevron-menu"></i>
+					</a>
 					@if($links = $menu->has_link)
 					<ul>
 						@foreach($links as $link)
@@ -118,7 +121,7 @@
 						$active = $open && request()->segment(4) == $link->field_primary;
 						@endphp
 						<li>
-							<a class="{{ $active ? 'active' : '' }}" href="{{ $link->field_url ? $link->field_url : route($link->field_action) }}">
+							<a class="link {{ $active ? 'active' : '' }}" hx-target="#content" hx-push-url="true" hx-get="{{ $link->field_controller ? route($link->field_action) : $link->field_url }}" href="{{ $link->field_controller ? route($link->field_action) : $link->field_url }}">
 								{{ $link->field_name }}
 							</a>
 						</li>

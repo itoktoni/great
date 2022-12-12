@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
 use App\Http\Services\DeleteService;
 use Coderello\SharedData\Facades\SharedData;
-use Illuminate\Support\Facades\Gate;
 use Plugins\Response;
 use Plugins\Template;
 
@@ -41,7 +40,7 @@ class MasterController extends Controller
     public function getTable()
     {
         $data = $this->getData();
-        return view(modulePathTable())->with([
+        return moduleView(modulePathTable(), [
             'data' => $data,
             'fields' => self::$repository->model->getShowField(),
         ]);
@@ -51,14 +50,14 @@ class MasterController extends Controller
     {
         $this->beforeForm();
         $this->beforeCreate();
-        return view(modulePathForm())->with($this->share());
+        return moduleView(modulePathForm(), $this->share());
     }
 
     public function getUpdate($code)
     {
         $this->beforeForm();
         $this->beforeUpdate($code);
-        return view(modulePathForm())->with($this->share([
+        return moduleView(modulePathForm(), $this->share([
             'model' => $this->get($code),
         ]));
     }

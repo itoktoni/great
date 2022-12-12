@@ -12,6 +12,7 @@ use App\Dao\Models\SystemGroup;
 use App\Dao\Models\SystemLink;
 use App\Dao\Models\SystemMenu;
 use App\Dao\Models\SystemPermision;
+use App\Dao\Models\SystemRole;
 use App\Dao\Models\TicketSystem;
 use App\Dao\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -90,6 +91,25 @@ class Query
         }
 
         return $menu;
+    }
+
+    public static function role()
+    {
+        if (env('APP_ENV') == EnvType::Production) {
+            if (Session::has('role')) {
+                return Session::get('role');
+            }
+        }
+
+        $role = [];
+        try {
+            $role = SystemRole::get();
+            Session::put('role', $role, 1200);
+        } catch (\Throwable$th) {
+            //throw $th;
+        }
+
+        return $role;
     }
 
     public static function permision()

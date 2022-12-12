@@ -13,6 +13,7 @@ use App\Dao\Enums\ScheduleStatus;
 use App\Dao\Enums\SpkStatus;
 use App\Dao\Enums\KontrakType;
 use App\Dao\Enums\TicketStatus;
+use App\Dao\Enums\UserLevel;
 use App\Dao\Enums\WorkStatus;
 use App\Dao\Enums\WorkType;
 use App\Dao\Models\Routes;
@@ -203,6 +204,7 @@ return [
         CacheableAuthUserServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         LaravelWebConsoleServiceProvider::class,
+        ProtoneMedia\LaravelFormComponents\Support\ServiceProvider::class,
     ],
 
     /*
@@ -267,7 +269,7 @@ return [
         'WorkStatus' => WorkStatus::class,
         'MovementStatus' => MovementStatus::class,
         'SpkStatus' => SpkStatus::class,
-        'RoleLevel' => RoleLevel::class,
+        'UserLevel' => UserLevel::class,
         'WorkType' => WorkType::class,
         'MovementType' => MovementType::class,
         'CommunicationType' => communicationType::class,

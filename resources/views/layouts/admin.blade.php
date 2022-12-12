@@ -11,22 +11,22 @@
 	@shared
 </head>
 
-<body class="fixed {{ !(Template::greatherAdmin()) ? 'navigation-toggle-one' : '' }}">
+<body class="fixed">
 
 	@include('layouts.header')
 
-	<div id="main" hx-boost="true">
+	<div id="main">
 
-		<div class="navigation" id="pjax">
+		<div class="navigation">
 
 			@include('layouts.left')
 
 		</div>
 
-		<div class="main-content">
-
+		<div class="main-content" id="content">
+			@fragment('content')
 			@yield('container')
-
+			@endfragment()
 		</div>
 
 		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -33,17 +33,6 @@ class UserController extends MasterController
         ];
     }
 
-    protected function beforeUpdate($code)
-    {
-        $data = $this->get($code, ['has_vendor']);
-        $vendor = $data->has_vendor ?? [];
-        if($vendor){
-            $vendor = [$vendor->field_primary => $vendor->field_name];
-        }
-
-        // $this->share(['vendor' => $vendor]);
-    }
-
     public function postCreate(UserRequest $request, CreateService $service)
     {
         $data = $service->save(self::$repository, $request);

@@ -1,14 +1,4 @@
-@php
-$action = null;
-$spoofMethod = null;
-$model = null;
-
-if(!$action){
-    $action = $model ? moduleRoute('postUpdate', ['code' => $model->{$model->getKeyName()}]) : moduleRoute('postCreate');
-}
-@endphp
-
-<form action="{{ $action }}" method="{{ $spoofMethod ? 'POST' : $method }}" {!! $attributes->merge([
+<form hx-boost="true" hx-target="#content" action="{{ $action }}" method="{{ $spoofMethod ? 'POST' : $method }}" {!! $attributes->merge([
     'class' => $hasError() ? 'form-submit needs-validation' : 'form-submit needs-validation'
 ]) !!}>
 

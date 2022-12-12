@@ -6,10 +6,12 @@
             </x-action>
 
             @bind($model)
+                @level(UserLevel::Developer)
                 <x-form-input col="3" name="name" />
-                <x-form-input col="3" class="date" name="username" />
+                @endlevel
+                <x-form-input col="3" name="username" />
                 <x-form-select col="6" class="search" name="vendor" :options="$vendor" />
-                <x-form-input col="6"  type="date" name="phone" />
+                <x-form-input col="6" name="phone" />
                 <x-form-input col="6" name="email" />
                 <x-form-select col="6" name="role" :options="$roles" />
                 <x-form-input col="6" name="password" type="password"/>

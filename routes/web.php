@@ -3,6 +3,7 @@
 use App\Dao\Enums\MenuType;
 use App\Dao\Facades\EnvFacades;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ Route::get('/', function () {
 
 })->name('one');
 
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware(['access'])->name('home');
 Route::get('/doc', 'App\Http\Controllers\HomeController@doc')->middleware(['access'])->name('doc');
 
@@ -35,7 +36,7 @@ $routes = Query::groups();
 //     Route::prefix('admin')->group(function () {
 //         // Route::resource('roles', RolesController::class);
 //         // AutoRoute::auto(Core::getControllerName(UserController::class), UserController::class);
-//         AutoRoute::auto('actor', RolesController::class, ['name' => Core::getControllerName(RolesController::class)]);
+//         // AutoRoute::auto('actor', RolesController::class, ['name' => Core::getControllerName(RolesController::class)]);
 //         AutoRoute::auto('user', UserController::class, ['name' => Core::getControllerName(UserController::class)]);
 //     });
 // });

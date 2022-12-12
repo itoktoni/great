@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Plugins\Core;
 use Plugins\Helper;
 use Plugins\Query;
@@ -22,7 +23,15 @@ class AccessMiddleware
 
     public function handle($request, Closure $next)
     {
+        if(!auth()->check()){
+            return redirect()->route('login');
+        }
+
         $route = request()->route() ?? false;
+        $url = $request->url();
+        // Session::flush();
+        Session::push('url_history', $url);
+        Session::put('url_current', $url);
         $action = $route->getAction();
         $action_code = $action['as'] ?? 'home';
         $action_controller = false;
@@ -36,6 +45,17 @@ class AccessMiddleware
         }
 
         $menu = (array)Query::getmenu($action_route) ?? [];
+        if(request()->segment(1) != 'home'){
+            $permision = Query::groups(true);
+        }
+        else{
+            $permision = Query::groups(auth()->user()->role);
+        }
+
+        if($permision->count() == 0 && request()->segment(1) != 'home'){
+           abort(402, 'Maaf anda tidak punya akses!');
+        }
+
         $data = array_merge($menu,[
             'action_code' => $action_code,
             'module_code' => $action_controller,
@@ -67,7 +87,7 @@ class AccessMiddleware
             share([
                 // 'access' => Template::routes(),
                 'filter' => Template::filter(),
-                'groups' => Query::groups(true),
+                'groups' => $permision,
                 'environment' => env('APP_ENV', 'local'),
                 'timer' => env('APP_TIMER_ALERT', 5000),
             ]);

@@ -58,14 +58,14 @@ trait UserEntity
         return $this->{self::field_username()};
     }
 
-    public static function field_type()
+    public static function field_level()
     {
-        return 'type';
+        return 'level';
     }
 
-    public function getFieldTypeAttribute()
+    public function getFieldLevelAttribute()
     {
-        return $this->{self::field_type()};
+        return $this->{self::field_level()};
     }
 
     public static function field_active()

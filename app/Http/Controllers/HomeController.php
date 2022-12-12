@@ -20,7 +20,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        if(auth()->check()){
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -31,7 +33,7 @@ class HomeController extends Controller
     public function index()
     {
         if(auth()->check() && auth()->user()->active == false){
-            return redirect()->to('/');
+            return redirect()->route('login');
         }
 
         return view('pages.home.home');

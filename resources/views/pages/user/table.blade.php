@@ -40,11 +40,7 @@
                                             value="{{ $table->field_primary }}">
                                     </td>
                                     <td class="col-md-2 text-center column-action">
-                                        <x-button module="getUpdate" key="{{ $table->field_primary }}" color="primary"
-                                            icon="pencil-square" class="button-update2" />
-
-                                        <x-button module="postDelete" key="{{ $table->field_primary }}" color="danger"
-                                            icon="trash3" hx-boost="false" class="button-delete" />
+                                        <x-crud :model="$table"/>
                                     </td>
                                     <td>{{ $table->field_name }}</td>
                                     <td>{{ $table->field_username }}</td>

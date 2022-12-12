@@ -29,7 +29,7 @@ class User extends Authenticatable
         'password',
         'username',
         'role',
-        'type',
+        'level',
         'vendor',
         'active',
     ];
@@ -95,7 +95,7 @@ class User extends Authenticatable
     public static function boot()
     {
         parent::saving(function ($model) {
-            $model->{User::field_type()} = $model->has_role->field_type ?? 0;
+            // $model->{User::field_role()} = $model->has_role->field_type ?? 0;
         });
         parent::boot();
     }
