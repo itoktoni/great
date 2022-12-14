@@ -162,7 +162,10 @@ body {
         ul {
             li {
                 >a.active {
-                    background-color: whitesmoke;
+                    background-color: whitesmoke !important;
+                    &:before{
+                        content: unset !important;
+                    }
                 }
             }
         }
@@ -296,6 +299,10 @@ a {
     th,
     td {
         vertical-align: middle;
+
+        .form-group{
+            margin-bottom: unset;
+        }
     }
 }
 

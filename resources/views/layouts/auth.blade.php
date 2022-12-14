@@ -32,9 +32,6 @@
 
 	</div>
 
-	<!-- Plugin scripts -->
-	<script src="{{ url('vendors/bundle.js') }}"></script>
-
 	<!-- App scripts -->
 	<script src="{{ url('assets/js/app.min.js') }}"></script>
 </body>

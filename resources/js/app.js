@@ -5,12 +5,12 @@
     var wind_ = $(window),
         body_ = $('body');
 
-    toastr.options = {
-        timeOut: shared('timer'),
-        progressBar: true,
-        showDuration: 200,
-        hideDuration: 200
-    };
+    // toastr.options = {
+    //     timeOut: shared('timer'),
+    //     progressBar: true,
+    //     showDuration: 200,
+    //     hideDuration: 200
+    // };
 
     // flatpickr(".datejs", {
     //     altInput: true,
@@ -30,7 +30,14 @@
     $('.table').cardtable();
     $(".search").selectize({
         allowEmptyOption:true,
-        create: false
+        create: false,
+        plugins: ["remove_button"],
+    });
+
+    $(".tag").selectize({
+        allowEmptyOption:false,
+        create: false,
+        plugins: ["remove_button"],
     });
 
     $(document).on('click', '.btn-check-m, .btn-check-d', function () {
@@ -238,7 +245,16 @@
         $(".collapse").collapse('toggle'); // toggle collapse
     });
 
+    $(document).on('click', '.navigation-menu-group ul li .link', function () {
+        $('.navigation-menu-group ul li .link.active').removeClass('active');
+        $(this).addClass('active'); // toggle collapse
+    });
+
 })(jQuery);
+
+document.body.addEventListener('htmx:configRequest', (event) => {
+    event.detail.headers['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+});
 
 addEventListener("htmx:beforeRequest", (event) => {
     NProgress.start();
@@ -246,31 +262,47 @@ addEventListener("htmx:beforeRequest", (event) => {
 });
 
 addEventListener("htmx:afterRequest", (event) => {
-    if(event.detail.successful){
+    if (event.detail.successful) {
         NProgress.done();
         NProgress.remove();
+    }
+
+    if (event.detail.xhr.responseURL.indexOf('login') != -1) {
+        window.location = event.detail.xhr.responseURL;
     }
 });
 
 addEventListener("htmx:responseError", (event) => {
-    window.location = event.detail.pathInfo['requestPath'];
     NProgress.done();
     NProgress.remove();
+
+    if (event.detail.xhr.responseText.indexOf('Sfdump') != -1) {
+        var errdiv = document.getElementById("errormessages");
+        errdiv.innerHTML = `
+    <div id="errormessagealert" class="container mt-3 mb-3">
+        <h4>Request Error: ` + event.detail.xhr.status + `</h4>
+        <code>` + event.detail.xhr.responseText + `</code>
+    </div>`;
+
+        document.getElementById("errormessagealert").style.display = "block";
+        return;
+    }
+
+    window.location = event.detail.pathInfo['requestPath'];
 });
 
 addEventListener("htmx:afterSettle", (event) => {
+
     $('.table').cardtable();
     $(".search").selectize({
-        allowEmptyOption:true,
-        create: false
+        allowEmptyOption: true,
+        create: false,
+        plugins: ["remove_button"],
+    });
+    $(".tag").selectize({
+        allowEmptyOption: false,
+        create: false,
+        plugins: ["remove_button"],
     });
 });
 
-document.body.addEventListener('htmx:configRequest', (event) => {
-    event.detail.headers['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
-});
-
-$(document).on('click', '.navigation-menu-group ul li .link', function () {
-    $('.navigation-menu-group ul li .link.active').removeClass('active');
-    $(this).addClass('active'); // toggle collapse
-});

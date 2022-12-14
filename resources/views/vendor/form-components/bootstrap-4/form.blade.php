@@ -20,7 +20,9 @@
 </div>
 @endif
 
-    {!! $slot !!}
+    <div class="row">
+        {!! $slot !!}
+    </div>
 
     @if(request()->ajax())
         <div class="modal-footer" id="modal-footer">

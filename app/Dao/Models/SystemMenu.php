@@ -6,12 +6,14 @@ use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\RoutesEntity;
 use App\Dao\Entities\SystemMenuEntity;
 use App\Dao\Enums\BooleanType;
+use App\Dao\Enums\MenuType;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
+use Plugins\Core;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class SystemMenu extends Model
@@ -67,6 +69,7 @@ class SystemMenu extends Model
             DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
             DataBuilder::build($this->field_controller())->name('Controller')->sort(),
             DataBuilder::build($this->field_description())->name('Description')->show(false),
+            DataBuilder::build($this->field_url())->name('Url')->sort(),
             DataBuilder::build($this->field_sort())->name('Sort')->sort()->class('column-active'),
         ];
     }
@@ -74,5 +77,25 @@ class SystemMenu extends Model
     public function has_link()
     {
         return $this->belongsToMany(SystemLink::class, 'system_menu_connection_link', 'system_menu_code', 'system_link_code');
+    }
+
+    public static function boot()
+    {
+        parent::creating(function ($model) {
+            if(empty($model->{SystemMenu::field_url()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)){
+                $model->{SystemMenu::field_primary()} = Core::getControllerName($model->{SystemMenu::field_controller()});
+            }
+
+            if(empty($model->{SystemMenu::field_action()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)){
+                $model->{SystemMenu::field_action()} = Core::getControllerName($model->{SystemMenu::field_controller()}).'.getTable';
+            }
+        });
+
+        parent::saving(function($model){
+            if(empty($model->{SystemMenu::field_url()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)){
+                $model->{SystemMenu::field_url()} = Core::getControllerName($model->{SystemMenu::field_controller()});
+            }
+        });
+        parent::boot();
     }
 }

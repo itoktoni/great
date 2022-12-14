@@ -2,47 +2,45 @@
 <html lang="en">
 
 <head>
-	@include('layouts.meta')
-	@yield('head')
+    @include('layouts.meta')
+    @yield('head')
 
-	<link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
-
-	@yield('css')
-	@shared
+    <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
+    @yield('css')
+    @shared
 </head>
 
 <body class="fixed">
 
-	@include('layouts.header')
+    @include('layouts.header')
 
-	<div id="main">
+    <div id="main">
 
-		<div class="navigation">
+        <div class="navigation">
 
-			@include('layouts.left')
+            @include('layouts.left')
 
-		</div>
+        </div>
 
-		<div class="main-content" id="content">
-			@fragment('content')
-			@yield('container')
-			@endfragment()
-		</div>
+        <div class="main-content" id="content">
+            @fragment('content')
+                @yield('container')
+                @include('layouts.alert')
+            @endfragment()
+        </div>
 
-		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content" id="modal-body">
-				</div>
-			</div>
-		</div>
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" id="modal-body">
+                </div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 
-	<script src="{{ url('assets/js/app.min.js') }}"></script>
+    <script src="{{ url('assets/js/app.min.js') }}"></script>
 
-	@stack('footer')
-
-	@include('layouts.alert')
+    @stack('footer')
 
 </body>
 

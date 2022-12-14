@@ -25,11 +25,9 @@ class UserController extends MasterController
     protected function beforeForm()
     {
         $roles = SystemRole::getOptions();
-        $vendor = Supplier::getOptions();
 
         self::$share = [
             'roles' => $roles,
-            'vendor' => $vendor,
         ];
     }
 

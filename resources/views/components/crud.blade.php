@@ -11,8 +11,8 @@
             icon="pencil-square" />
             @break
         @case('delete')
-        <x-button module="postDelete" key="{{ $model->field_primary }}" color="danger"
-            icon="trash3" hx-boost="false" class="button-delete" />
+        <x-button module="getDelete" key="{{ $model->field_primary }}" color="danger"
+            icon="trash3" hx-confirm="Apakah anda yakin ingin menghapus ?" class="button-delete" />
             @break
         @default
     @endswitch

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
 use App\Http\Services\DeleteService;
 use Coderello\SharedData\Facades\SharedData;
+use Illuminate\Http\Request;
 use Plugins\Response;
 use Plugins\Template;
 
@@ -37,6 +38,20 @@ class MasterController extends Controller
         return $query;
     }
 
+    public function getDelete()
+    {
+        $code = request()->get('code');
+        $data = self::$service->delete(self::$repository, $code);
+        return Response::redirectBack($data);
+    }
+
+    public function postDelete(DeleteRequest $request, DeleteService $service)
+    {
+        $code = $request->get('code');
+        $data = $service->delete(self::$repository, $code);
+        return Response::redirectBack($data);
+    }
+
     public function getTable()
     {
         $data = $this->getData();
@@ -44,6 +59,21 @@ class MasterController extends Controller
             'data' => $data,
             'fields' => self::$repository->model->getShowField(),
         ]);
+    }
+
+    public function postTable(Request $request)
+    {
+        if($request->exists('delete')){
+            $code = $request->get('code');
+            $data = self::$service->delete(self::$repository, $code);
+        }
+
+        if($request->exists('sort')){
+            $sort = $request->get('sort');
+            $data = self::$service->sort(self::$repository, $sort);
+        }
+
+        return Response::redirectBack($data);
     }
 
     public function getCreate()
@@ -69,12 +99,5 @@ class MasterController extends Controller
             return self::$service->get(self::$repository, $code, $relation);
         }
         return self::$service->get(self::$repository, $code);
-    }
-
-    public function postDelete(DeleteRequest $request, DeleteService $service)
-    {
-        $code = $request->get('code');
-        $data = $service->delete(self::$repository, $code);
-        return Response::redirectBack($data);
     }
 }

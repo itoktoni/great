@@ -1,18 +1,16 @@
 <x-layout>
 
-    <x-action>
-        <input class="btn-check-m d-lg-none" type="checkbox">
-        <x-button hx-boost="false" module="postDelete" color="danger" label="Delete" class="button-delete-all" />
-        <x-button module="getCreate" color="success" label="Create" />
-    </x-action>
+    <x-card>
 
-    <x-form method="GET" action="{{ moduleRoute('getTable') }}">
+        <x-form method="GET" action="{{ moduleRoute('getTable') }}">
+            <x-filter toggle="Filter" :fields="$fields" />
+        </x-form>
 
-        <x-card>
+        <x-form method="POST" action="{{ moduleRoute('getTable') }}">
 
-            <x-filter toggle="Filter" :fields="$fields"/>
+            <x-action/>
 
-            <div class="col-md-12">
+            <div class="container">
                 <div class="table-responsive" id="table_data">
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -40,13 +38,11 @@
                                             value="{{ $table->field_primary }}">
                                     </td>
                                     <td class="col-md-2 text-center column-action">
-                                        <x-crud :model="$table"/>
+                                        <x-crud :model="$table" />
                                     </td>
                                     <td>{{ $table->field_name }}</td>
                                     <td>{{ $table->field_username }}</td>
                                     <td>{{ $table->field_role_name }}</td>
-                                    <td>{{ $table->has_vendor->field_name ?? '' }}
-                                    </td>
                                     <td>{{ $table->field_phone }}</td>
                                 </tr>
                             @empty
@@ -57,10 +53,8 @@
                 <x-pagination :data="$data" />
             </div>
 
-        </x-card>
+        </x-form>
 
-    </x-form>
-
-    <x-script-table />
+    </x-card>
 
 </x-layout>

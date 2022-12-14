@@ -16,7 +16,6 @@ class UserRepository extends MasterRepository implements CrudInterface
     {
         $query = $this->model
             ->select($this->model->getSelectedField())
-            ->leftJoinRelationship('has_vendor')
             ->leftJoinRelationship('has_role')
             ->active()
             ->sortable()

@@ -595,6 +595,7 @@ class Helper
             'validateWith',
             'validate',
             'validateWithBag',
+            'dispatchSync',
         ];
         foreach ($function as $method) {
             if((!in_array($method, $unset))){

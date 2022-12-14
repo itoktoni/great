@@ -2,29 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Dao\Entities\SystemMenuEntity;
 use App\Dao\Enums\BooleanType;
 use App\Dao\Enums\MenuType;
-use App\Dao\Models\Groups;
-use App\Dao\Models\Menus;
 use App\Dao\Models\SystemLink;
 use App\Dao\Repositories\LinkRepository;
-use App\Dao\Repositories\MenuRepository;
 use App\Http\Requests\LinkRequest;
-use App\Http\Requests\RoutesRequest;
-use App\Http\Requests\SortRequest;
-use App\Http\Services\CreateRoutesService;
 use App\Http\Services\CreateService;
 use App\Http\Services\SingleService;
-use App\Http\Services\UpdateMenuService;
-use App\Http\Services\UpdateRoutesService;
 use App\Http\Services\UpdateService;
-use Coderello\SharedData\Facades\SharedData;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Plugins\Helper;
 use Plugins\Response;
-use Plugins\Template;
 
 class LinkController extends MasterController
 {
@@ -37,7 +25,11 @@ class LinkController extends MasterController
     protected function beforeForm()
     {
         $status = BooleanType::getOptions();
-        $type = MenuType::getOptions();
+        $type = MenuType::getOptions([
+            MenuType::Internal,
+            MenuType::External,
+            MenuType::Menu,
+        ]);
         $link = SystemLink::getOptions();
 
         $files = Helper::getControllerFile();
@@ -48,6 +40,7 @@ class LinkController extends MasterController
             'model' => false,
             'link' => $link,
             'file' => $files,
+            'action' => [],
         ];
     }
 
@@ -71,7 +64,7 @@ class LinkController extends MasterController
         $data = $this->get($code);
         $action = Helper::getFunction($data->field_controller, $data->field_primary) ?? [];
 
-        return view(Template::form(SharedData::get('template')))->with($this->share([
+        return moduleView(modulePathForm(), $this->share([
             'model' => $data,
             'action' => $action
         ]));

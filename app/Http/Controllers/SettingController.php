@@ -15,12 +15,7 @@ class SettingController extends Controller
 {
     protected function share($data = [])
     {
-        $status = BooleanType::getOptions();
-        $type = WorkType::getOptions();
-
         $view = [
-            'status' => $status,
-            'type' => $type,
             'model' => false,
         ];
         return array_merge($view, $data);
@@ -28,7 +23,7 @@ class SettingController extends Controller
 
     public function getCreate()
     {
-        return view(Template::form(SharedData::get('template')))->with($this->share());
+        return moduleView(modulePathForm(), $this->share());
     }
 
     public function postCreate(SettingRequest $request, CreateSettingService $service)

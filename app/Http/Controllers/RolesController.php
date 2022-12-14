@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dao\Enums\RoleLevel;
+use App\Dao\Enums\UserLevel;
 use App\Dao\Models\Roles;
 use App\Dao\Models\SystemGroup;
 use App\Dao\Repositories\RolesRepository;
@@ -26,11 +27,11 @@ class RolesController extends MasterController
     protected function beforeForm(){
 
         $group = SystemGroup::getOptions();
-        $type = RoleLevel::getOptions();
+        $level = UserLevel::getOptions();
 
         self::$share = [
             'group' => $group,
-            'type' => $type
+            'level' => $level
         ];
     }
 
@@ -54,7 +55,7 @@ class RolesController extends MasterController
         $data = $this->get($code, ['has_group']);
         $selected = $data->has_group->pluck('system_group_code') ?? [];
 
-        return view(Template::form(SharedData::get('template')))->with($this->share([
+        return moduleView(modulePathForm(), $this->share([
             'model' => $data,
             'selected' => $selected,
         ]));

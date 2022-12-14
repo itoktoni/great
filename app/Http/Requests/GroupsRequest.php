@@ -23,7 +23,6 @@ class GroupsRequest extends FormRequest
     {
         return [
             'system_group_name' => 'required|min:3|unique:system_group',
-            'system_group_enable' => 'required',
         ];
     }
 }

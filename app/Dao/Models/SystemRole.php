@@ -58,7 +58,7 @@ class SystemRole extends Model
         return [
             DataBuilder::build($this->field_primary())->name('Code')->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show(true)->sort(),
-            DataBuilder::build($this->field_type())->name('Type')->show(true)->sort(),
+            DataBuilder::build($this->field_level())->name('Level')->show(true)->sort(),
             DataBuilder::build($this->field_description())->name('Description')->show(true),
         ];
     }

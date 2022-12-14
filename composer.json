@@ -18,7 +18,6 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hammerstone/fast-paginate": "^0.1.10",
         "izniburak/laravel-auto-routes": "^1.6",
-        "joedixon/laravel-translation": "^1.1",
         "kirschbaum-development/eloquent-power-joins": "^2.6",
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^9.0",

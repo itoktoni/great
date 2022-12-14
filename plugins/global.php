@@ -1,6 +1,7 @@
 <?php
 
 use Coderello\SharedData\Facades\SharedData;
+use Illuminate\Support\Str;
 
 function module($module = null){
     return SharedData::get($module);
@@ -60,4 +61,17 @@ function moduleView($template, $data){
     }
 
     return $view;
+}
+
+function formatLabel($value){
+
+    $label = Str::of($value);
+    if($label->contains('_')){
+        $label = $label = $label->explode('_')->last();
+    }
+    else{
+        $label = $label->replace('[]', '');
+    }
+
+    return ucfirst($label);
 }

@@ -29,6 +29,7 @@ class SystemLink extends Model
         'system_link_description',
         'system_link_enable',
         'system_link_url',
+        'system_link_type',
     ];
 
     public $sortable = [
@@ -60,6 +61,7 @@ class SystemLink extends Model
             DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
             DataBuilder::build($this->field_controller())->name('Controller')->sort(),
             DataBuilder::build($this->field_description())->name('Description')->show(false),
+            DataBuilder::build($this->field_url())->name('Url')->sort(),
             DataBuilder::build($this->field_sort())->name('Sort')->sort()->class('column-active'),
         ];
     }

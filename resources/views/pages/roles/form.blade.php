@@ -1,75 +1,16 @@
-@extends(Template::master())
+<x-layout>
+    <x-card>
+        <x-form :model="$model">
+            <x-action form="form" />
 
-@section('title')
-<h4>{{ moduleName() }}</h4>
-@endsection
+            @bind($model)
+                <x-form-input col="6" name="system_role_name" />
+                <x-form-input col="6" name="system_role_description" />
+                <x-form-select col="6" name="system_role_level" :options="$level" />
+                <x-form-select col="6" class="tag" multiple name="group[]" :default="$selected ?? []" :options="$group" />
+            @endbind
 
-@section('action')
-<div class="button">
-	<button type="submit" class="btn btn-primary" id="modal-btn-save">{{ __('Save') }}</button>
-</div>
-@endsection
-
-@section('container')
-
-{!! Template::form_open($model) !!}
-
-@if(!request()->ajax())
-<div class="page-header">
-	<div class="header-container container-fluid d-sm-flex justify-content-between">
-		@yield('title')
-		@yield('action')
-	</div>
-</div>
-@endif
-
-<div class="card">
-	<div class="card-body">
-
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group {{ $errors->has('system_role_name') ? 'has-error' : '' }}">
-					<label>{{ __('Name') }}</label>
-					{!! Form::text('system_role_name', null, ['class' => 'form-control', 'id' => 'system_role_name',
-					'placeholder'
-					=> 'Please fill this input', 'required']) !!}
-					{!! $errors->first('system_role_name', '<p class="help-block">:message</p>') !!}
-				</div>
-
-				<div class="form-group">
-					<label>{{ __('Description') }}</label>
-					{!! Form::textarea('system_role_description', null, ['class' => 'form-control h-auto', 'id' =>
-					'email',
-					'placeholder' => 'Please fill this input', 'rows' => 5]) !!}
-				</div>
-
-			</div>
-
-			<div class="col-md-6">
-
-				<div class="form-group {{ $errors->has('system_role_type') ? 'has-error' : '' }}">
-					<label>{{ __('Type Role') }}</label>
-					{!! Form::select('system_role_type',$type, null,  ['class' => 'form-control', 'id' =>
-					'system_role_type', 'placeholder' => '- Pilih Type -']) !!}
-				</div>
-
-				<div class="form-group {{ $errors->has('group') ? 'has-error' : '' }}">
-					<label>{{ __('Akses Group') }}</label>
-					{!! Form::select('group[]', $group, $selected ?? [], ['class' => 'form-control', 'id' =>
-					'group', 'multiple']) !!}
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-</div>
-
-{!! Template::form_close() !!}
-
-@endsection
-
-@push('javascript')
-@include(Template::components('form'))
-@endpush
+        </x-form>
+    </x-card>
+    <x-script-form />
+</x-layout>

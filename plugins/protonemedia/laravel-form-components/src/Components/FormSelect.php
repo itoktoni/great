@@ -78,7 +78,7 @@ class FormSelect extends Component
         $this->col = $this->col ? 'col-md-'.$this->col : 'col';
 
         if(!is_bool($this->label)){
-            $this->label = $this->label ? $this->label : Str::title($name);
+            $this->label = $this->label ? $this->label : formatLabel($name);
         }
 
         if(empty($placeholder)){

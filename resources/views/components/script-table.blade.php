@@ -73,44 +73,6 @@ function getUrlVars()
     return vars;
 }
 
-$('body').on('click', '.button-delete', function(event) {
-    event.preventDefault();
-
-    var me = $(this),
-        url = me.attr('href'),
-        id = url.substring(url.indexOf('=') + 1),
-        csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-    var dialog = "Apakah Anda ingin menghapus ?";
-    if (confirm(dialog) == true) {
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: 'json',
-            data: {
-                'id': id
-            },
-            success: function(response) {
-                if (response.status) {
-                    window.location.reload();
-                } else if (response.status == false) {
-                    toastr.error(response.data);
-                } else {
-                    toastr.error('Gagal menghapus !');
-                }
-            },
-            error: function(xhr, status, error) {
-
-                if (xhr.status == 422) {
-                    toastr.error('Validasi gagal !');
-                } else {
-                    toastr.error('Error diserver !');
-                }
-            }
-        });
-    }
-});
-
 $('body').on('click', '.button-delete-all', function(event) {
     event.preventDefault();
 
@@ -128,14 +90,11 @@ $('body').on('click', '.button-delete-all', function(event) {
 
     if(data.length == 0){
 
-        toastr.error('Silahkan centang terlebih dahulu!');
+        // toastr.error('Silahkan centang terlebih dahulu!');
         return;
     }
 
-    var dialog = "Apakah Anda ingin menghapus ?";
-    if (confirm(dialog) == true) {
-
-        $.ajax({
+    $.ajax({
             url: url,
             type: "POST",
             dataType: 'json',
@@ -143,22 +102,27 @@ $('body').on('click', '.button-delete-all', function(event) {
                 'code': data
             },
             success: function(response) {
-                if (response.status) {
-                    window.location.reload();
-
-                } else if (response.status == false) {
-                    toastr.error(response.data);
-                } else {
-                    toastr.error('Delete Failed !');
-                }
+                // if (response.status) {
+                //     window.location.reload();
+                // } else if (response.status == false) {
+                //     toastr.error(response.data);
+                // } else {
+                //     toastr.error('Delete Failed !');
+                // }
             },
-            error: function(xhr, status, error) {
-                toastr.error('Delete Failed !');
-            }
+            // error: function(xhr, status, error) {
+            //     toastr.error('Delete Failed !');
+            // }
         });
 
-    }
+    // var dialog = "Apakah Anda ingin menghapus ?";
+    // if (confirm(dialog) == true) {
+
+
+
+    // }
 });
+
 </script>
 @endpush
 @endonce

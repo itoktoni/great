@@ -83,4 +83,14 @@ trait SystemLinkEntity
     {
         return $this->{self::field_action()};
     }
+
+    public static function field_type()
+    {
+        return 'system_link_type';
+    }
+
+    public function getFieldTypeAttribute()
+    {
+        return $this->{self::field_type()};
+    }
 }

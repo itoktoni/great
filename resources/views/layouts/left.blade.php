@@ -82,13 +82,13 @@
 				@foreach($menus as $menu)
 				@if($menu->field_type == MenuType::Internal)
 				<li>
-					<a href="{{ $menu->field_action }}">
+					<a href="{{ $menu->field_url }}">
 						<span>{{ $menu->field_name }}</span>
 					</a>
 				</li>
 				@elseif($menu->field_type == MenuType::External)
 				<li>
-					<a target="_blank" href="{{ $menu->field_action }}">
+					<a target="_blank" href="{{ $menu->field_url }}">
 						<span>{{ $menu->field_name }}</span>
 					</a>
 				</li>
@@ -98,7 +98,7 @@
 				</li>
 				@elseif($menu->field_type == MenuType::Menu)
 				@php
-				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_primary;
+				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_url;
 				@endphp
 				<li>
 					<a class="link {{ $active ? 'active' : '' }}" hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
@@ -118,13 +118,21 @@
 					<ul>
 						@foreach($links as $link)
 						@php
-						$active = $open && request()->segment(4) == $link->field_primary;
+						$active = $open && request()->segment(4) == $link->field_url;
 						@endphp
+						@if($link->field_type == MenuType::External || $link->field_type == MenuType::Internal)
 						<li>
-							<a class="link {{ $active ? 'active' : '' }}" hx-target="#content" hx-push-url="true" hx-get="{{ $link->field_controller ? route($link->field_action) : $link->field_url }}" href="{{ $link->field_controller ? route($link->field_action) : $link->field_url }}">
+							<a class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
 								{{ $link->field_name }}
 							</a>
 						</li>
+						@else
+						<li>
+							<a class="link {{ $active ? 'active' : '' }}" hx-target="#content" hx-push-url="true" hx-get="{{ route($link->field_action) }}" href="{{ route($link->field_action) }}">
+								{{ $link->field_name }}
+							</a>
+						</li>
+						@endif
 						@endforeach
 					</ul>
 					@endif

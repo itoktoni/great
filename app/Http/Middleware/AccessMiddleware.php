@@ -28,10 +28,6 @@ class AccessMiddleware
         }
 
         $route = request()->route() ?? false;
-        $url = $request->url();
-        // Session::flush();
-        Session::push('url_history', $url);
-        Session::put('url_current', $url);
         $action = $route->getAction();
         $action_code = $action['as'] ?? 'home';
         $action_controller = false;
@@ -61,9 +57,10 @@ class AccessMiddleware
             'module_code' => $action_controller,
             'template' => $action_controller,//legacy
             'route' => $action_route,
-            'controller' => $action_full_controller
+            'controller' => $action_full_controller,
         ]);
         share($data);
+
         // $permision = Query::permision();
 
         // $checkPermision = $permision->contains(function($value) use($action_code){

@@ -46,6 +46,7 @@ class MenuController extends MasterController
             'model' => false,
             'link' => $link,
             'file' => $files,
+            'action' => [],
         ];
     }
 
@@ -80,7 +81,7 @@ class MenuController extends MasterController
             $action = Helper::getFunction($data->field_controller, $data->field_primary);
         }
 
-        return view(Template::form(SharedData::get('template')))->with($this->share([
+        return moduleView(modulePathForm(), $this->share([
             'model' => $data,
             'selected' => $selected,
             'action' => $action,

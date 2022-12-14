@@ -6,6 +6,7 @@
 
 @section('container')
 <div class="container-fluid">
+	<div id="errormessages"></div>
     {{ $slot }}
 </div>
 @endsection
