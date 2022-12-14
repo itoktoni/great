@@ -15,7 +15,7 @@ class CreateSettingService
             EnvFacades::setValue('APP_NAME', $data->name);
             EnvFacades::setValue('APP_TITLE', $data->title);
 
-            Alert::create();
+            Alert::update();
 
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());

@@ -6,10 +6,10 @@ use Coderello\SharedData\Facades\SharedData;
 
 class Alert
 {
-    const create = 'Created';
-    const update = 'Saved';
-    const delete = 'Deleted';
-    const failed = 'Failed';
+    const create = 'buat';
+    const update = 'simpan';
+    const delete = 'hapus';
+    const failed = 'gagal';
     const error = 'error';
     const success = 'success';
     const warning = 'warning';
